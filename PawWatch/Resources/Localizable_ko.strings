@@ -1,0 +1,57 @@
+/* Korean */
+
+"app_name" = "PawWatch";
+"app_description" = "AI 감지 기능이 있는 자동 고양이 카메라 및 라이브 스트리밍";
+
+/* Tab Titles */
+"tab_home" = "홈";
+"tab_remote" = "원격";
+"tab_settings" = "설정";
+
+/* Home Screen */
+"recording_status" = "녹화 상태";
+"recording_active" = "활성";
+"recording_inactive" = "비활성";
+"stop_watching" = "감시 중지";
+"start_watching" = "감시 시작";
+"view_preview" = "로컬 미리보기 보기";
+"share_qr_code" = "다른 사용자와 공유";
+
+/* Remote Viewer */
+"remote_viewer_title" = "원격 뷰어";
+"connect_local" = "로컬";
+"connect_cloud" = "클라우드";
+"scan_qr_code" = "QR 코드 스캔";
+"enter_pairing_code" = "방송장치에서 페어링 코드 입력";
+"pairing_code_placeholder" = "000000";
+"connect_to_cloud" = "클라우드에 연결";
+"connect_to_local" = "연결";
+"device_name" = "기기 이름";
+"device_name_hint" = "예: 거실 카메라";
+"ip_address" = "IP 주소";
+"ip_address_hint" = "192.168.1.100";
+"port" = "포트";
+
+/* Settings */
+"settings_title" = "설정";
+"cloud_streaming" = "클라우드 스트리밍";
+"video_quality" = "비디오 품질";
+"sensitivity" = "민감도";
+"about" = "정보";
+"version" = "버전";
+"build" = "빌드";
+
+/* Permissions */
+"camera_permission" = "카메라";
+"location_permission" = "위치";
+"notification_permission" = "알림";
+
+/* Errors */
+"error_camera_not_available" = "카메라를 사용할 수 없습니다";
+"error_connection_failed" = "연결 실패";
+"error_invalid_pairing_code" = "유효하지 않은 페어링 코드";
+
+/* Status */
+"connecting" = "연결 중...";
+"connected" = "연결됨";
+"disconnected" = "연결 해제됨";

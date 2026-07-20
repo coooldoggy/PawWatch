@@ -1,0 +1,57 @@
+/* English */
+
+"app_name" = "PawWatch";
+"app_description" = "Automatic cat camera with AI detection and live streaming";
+
+/* Tab Titles */
+"tab_home" = "Home";
+"tab_remote" = "Remote";
+"tab_settings" = "Settings";
+
+/* Home Screen */
+"recording_status" = "Recording Status";
+"recording_active" = "Active";
+"recording_inactive" = "Inactive";
+"stop_watching" = "Stop Watching";
+"start_watching" = "Start Watching";
+"view_preview" = "View Local Preview";
+"share_qr_code" = "Share with Others";
+
+/* Remote Viewer */
+"remote_viewer_title" = "Remote Viewer";
+"connect_local" = "Local";
+"connect_cloud" = "Cloud";
+"scan_qr_code" = "Scan QR Code";
+"enter_pairing_code" = "Enter the pairing code from the broadcaster device";
+"pairing_code_placeholder" = "000000";
+"connect_to_cloud" = "Connect to Cloud";
+"connect_to_local" = "Connect";
+"device_name" = "Device Name";
+"device_name_hint" = "e.g., Living Room Camera";
+"ip_address" = "IP Address";
+"ip_address_hint" = "192.168.1.100";
+"port" = "Port";
+
+/* Settings */
+"settings_title" = "Settings";
+"cloud_streaming" = "Cloud Streaming";
+"video_quality" = "Video Quality";
+"sensitivity" = "Sensitivity";
+"about" = "About";
+"version" = "Version";
+"build" = "Build";
+
+/* Permissions */
+"camera_permission" = "Camera";
+"location_permission" = "Location";
+"notification_permission" = "Notifications";
+
+/* Errors */
+"error_camera_not_available" = "Camera is not available";
+"error_connection_failed" = "Connection failed";
+"error_invalid_pairing_code" = "Invalid pairing code";
+
+/* Status */
+"connecting" = "Connecting...";
+"connected" = "Connected";
+"disconnected" = "Disconnected";
