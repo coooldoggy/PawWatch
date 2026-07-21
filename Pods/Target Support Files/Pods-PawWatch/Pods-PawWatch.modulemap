@@ -1,0 +1,6 @@
+module Pods_PawWatch {
+  umbrella header "Pods-PawWatch-umbrella.h"
+
+  export *
+  module * { export * }
+}

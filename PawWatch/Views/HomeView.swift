@@ -1,4 +1,6 @@
 import SwiftUI
+import KakaoSDKTalk
+import KakaoSDKTemplate
 
 struct HomeView: View {
     @Binding var isRecording: Bool
@@ -101,13 +103,24 @@ struct HomeView: View {
                                     .cornerRadius(8)
                             }
 
-                            Button(action: { isRecording = false }) {
-                                Text("Stop Watching")
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 10)
-                                    .background(Color.red)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(8)
+                            HStack(spacing: 12) {
+                                Button(action: shareToKakaoTalk) {
+                                    Text("Share")
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 10)
+                                        .background(Color.orange)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(8)
+                                }
+
+                                Button(action: { isRecording = false }) {
+                                    Text("Stop")
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 10)
+                                        .background(Color.red)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(8)
+                                }
                             }
                         }
                         .padding()
@@ -171,15 +184,39 @@ struct HomeView: View {
     }
 
     func generateQRCode(from data: String) -> UIImage? {
-        let data = data.data(using: .ascii)
+        guard let data = data.data(using: .utf8) else { return nil }
+
         let filter = CIFilter(name: "CIQRCodeGenerator")
         filter?.setValue(data, forKey: "inputMessage")
+        filter?.setValue("M", forKey: "inputCorrectionLevel")
 
-        if let outputImage = filter?.outputImage {
-            let transform = CGAffineTransform(scaleX: 10, y: 10)
-            let scaledImage = outputImage.transformed(by: transform)
-            return UIImage(ciImage: scaledImage)
+        guard let outputImage = filter?.outputImage else { return nil }
+
+        let scale = 10.0
+        let transformedImage = outputImage.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
+
+        let context = CIContext()
+        guard let cgImage = context.createCGImage(transformedImage, from: transformedImage.extent) else { return nil }
+
+        return UIImage(cgImage: cgImage)
+    }
+
+    func shareToKakaoTalk() {
+        let text = "Cat Streaming Live 🐱\n새로운 영상이 업로드되었습니다!"
+
+        if let urlStr = "kakaoopen://talk".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+           let url = URL(string: urlStr) {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
         }
-        return nil
+
+        TalkApiClient.shared.sendDefaultMemo(text: text) { error in
+            if let error = error {
+                print("KakaoTalk share failed: \(error)")
+            } else {
+                print("KakaoTalk share success")
+            }
+        }
     }
 }

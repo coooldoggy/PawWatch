@@ -1,0 +1,1 @@
+../../../KakaoSDKFriend/Sources/KakaoSDKFriend/KakaoSDKFriend.h

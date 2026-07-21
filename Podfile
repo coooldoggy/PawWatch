@@ -8,4 +8,11 @@ target 'PawWatch' do
   # QR Code
   pod 'ZXingObjC'
 
+  # Kakao SDK
+  pod 'KakaoSDK'
+
+  # Firebase
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+
 end
