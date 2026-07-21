@@ -7,14 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		931E19C968731185F742C68D /* libPods-PawWatch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D548F7A41758B2FAF60AA024 /* libPods-PawWatch.a */; };
+		2EA8CBA73A55499247D7209F /* libPods-PawWatch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C5A861DA0128DFA4FF18EA3 /* libPods-PawWatch.a */; };
+		721FDAA9300F0C2000EABF5D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 721FDAA8300F0C2000EABF5D /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2582746B8CCD5DF6C20A3479 /* Pods-PawWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PawWatch.debug.xcconfig"; path = "../PawWatch/Pods/Target Support Files/Pods-PawWatch/Pods-PawWatch.debug.xcconfig"; sourceTree = "<group>"; };
-		6AFCC3FD4104E6174780A8ED /* Pods-PawWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PawWatch.release.xcconfig"; path = "../PawWatch/Pods/Target Support Files/Pods-PawWatch/Pods-PawWatch.release.xcconfig"; sourceTree = "<group>"; };
+		721FDAA8300F0C2000EABF5D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		72CE3CA0300E2AF700C4AEB2 /* PawWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PawWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D548F7A41758B2FAF60AA024 /* libPods-PawWatch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PawWatch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AA9B3436AC197FF2357A8AE /* Pods-PawWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PawWatch.debug.xcconfig"; path = "Target Support Files/Pods-PawWatch/Pods-PawWatch.debug.xcconfig"; sourceTree = "<group>"; };
+		7C5A861DA0128DFA4FF18EA3 /* libPods-PawWatch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PawWatch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADF2D67FEA239AA44B49A428 /* Pods-PawWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PawWatch.release.xcconfig"; path = "Target Support Files/Pods-PawWatch/Pods-PawWatch.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,20 +34,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				931E19C968731185F742C68D /* libPods-PawWatch.a in Frameworks */,
+				2EA8CBA73A55499247D7209F /* libPods-PawWatch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E8E7E20789B9C83BCC5D073 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7AA9B3436AC197FF2357A8AE /* Pods-PawWatch.debug.xcconfig */,
+				ADF2D67FEA239AA44B49A428 /* Pods-PawWatch.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		72CE3C97300E2AF700C4AEB2 = {
 			isa = PBXGroup;
 			children = (
+				721FDAA8300F0C2000EABF5D /* GoogleService-Info.plist */,
 				72CE3CA2300E2AF700C4AEB2 /* PawWatch */,
 				72CE3CA1300E2AF700C4AEB2 /* Products */,
-				7A974DAE2315B126DAEB4560 /* Pods */,
-				BDC57BCBFB9BF27B52860247 /* Frameworks */,
+				3E8E7E20789B9C83BCC5D073 /* Pods */,
+				7333F91B15F290EA1C4F1158 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,20 +70,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7A974DAE2315B126DAEB4560 /* Pods */ = {
+		7333F91B15F290EA1C4F1158 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2582746B8CCD5DF6C20A3479 /* Pods-PawWatch.debug.xcconfig */,
-				6AFCC3FD4104E6174780A8ED /* Pods-PawWatch.release.xcconfig */,
-			);
-			name = Pods;
-			path = ../Pods;
-			sourceTree = "<group>";
-		};
-		BDC57BCBFB9BF27B52860247 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D548F7A41758B2FAF60AA024 /* libPods-PawWatch.a */,
+				7C5A861DA0128DFA4FF18EA3 /* libPods-PawWatch.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -82,11 +85,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 72CE3CAC300E2AF800C4AEB2 /* Build configuration list for PBXNativeTarget "PawWatch" */;
 			buildPhases = (
-				310CF63970A8C51C93CCD0C1 /* [CP] Check Pods Manifest.lock */,
+				E5F66360BE000898C624839D /* [CP] Check Pods Manifest.lock */,
 				72CE3C9C300E2AF700C4AEB2 /* Sources */,
 				72CE3C9D300E2AF700C4AEB2 /* Frameworks */,
 				72CE3C9E300E2AF700C4AEB2 /* Resources */,
-				F608D9A841B596310AA4A626 /* [CP] Copy Pods Resources */,
+				DA46ED070CDBE45B69E0DCB7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -139,13 +142,31 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				721FDAA9300F0C2000EABF5D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		310CF63970A8C51C93CCD0C1 /* [CP] Check Pods Manifest.lock */ = {
+		DA46ED070CDBE45B69E0DCB7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PawWatch/Pods-PawWatch-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PawWatch/Pods-PawWatch-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PawWatch/Pods-PawWatch-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E5F66360BE000898C624839D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -165,23 +186,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F608D9A841B596310AA4A626 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PawWatch/Pods-PawWatch-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PawWatch/Pods-PawWatch-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PawWatch/Pods-PawWatch-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -315,7 +319,7 @@
 		};
 		72CE3CAD300E2AF800C4AEB2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2582746B8CCD5DF6C20A3479 /* Pods-PawWatch.debug.xcconfig */;
+			baseConfigurationReference = 7AA9B3436AC197FF2357A8AE /* Pods-PawWatch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -357,7 +361,7 @@
 		};
 		72CE3CAE300E2AF800C4AEB2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6AFCC3FD4104E6174780A8ED /* Pods-PawWatch.release.xcconfig */;
+			baseConfigurationReference = ADF2D67FEA239AA44B49A428 /* Pods-PawWatch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
