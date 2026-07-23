@@ -14,19 +14,26 @@ struct ContentView: View {
                     }
                     .tag(0)
 
+                GalleryView()
+                    .ignoresSafeArea(.container, edges: [.horizontal, .bottom])
+                    .tabItem {
+                        Label("Gallery", systemImage: "heart.fill")
+                    }
+                    .tag(1)
+
                 RemoteViewerView()
                     .ignoresSafeArea(.container, edges: [.horizontal, .bottom])
                     .tabItem {
                         Label("Remote", systemImage: "video.circle.fill")
                     }
-                    .tag(1)
+                    .tag(2)
 
                 SettingsView()
                     .ignoresSafeArea(.container, edges: [.horizontal, .bottom])
                     .tabItem {
                         Label("Settings", systemImage: "gear")
                     }
-                    .tag(2)
+                    .tag(3)
             }
             .accentColor(.orange)
         }

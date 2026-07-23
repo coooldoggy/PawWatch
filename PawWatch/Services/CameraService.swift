@@ -161,7 +161,18 @@ extension CameraService: AVCaptureVideoDataOutputSampleBufferDelegate {
 
         guard !isRecordingVideo, let movieFileOutput = movieFileOutput else { return }
 
-        let outputPath = NSTemporaryDirectory() + "cat_\(Int(Date().timeIntervalSince1970)).mov"
+        // Save to Documents/Videos directory
+        let fileManager = FileManager.default
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let videosPath = (documentsPath as NSString).appendingPathComponent("Videos")
+
+        // Create Videos directory if it doesn't exist
+        if !fileManager.fileExists(atPath: videosPath) {
+            try? fileManager.createDirectory(atPath: videosPath, withIntermediateDirectories: true)
+        }
+
+        let fileName = "cat_\(Int(Date().timeIntervalSince1970)).mov"
+        let outputPath = (videosPath as NSString).appendingPathComponent(fileName)
         let outputURL = URL(fileURLWithPath: outputPath)
 
         DispatchQueue.main.async {
