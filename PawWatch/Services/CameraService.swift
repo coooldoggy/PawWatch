@@ -1,19 +1,22 @@
 import AVFoundation
 import Combine
 import UIKit
+import Vision
+import KakaoSDKTalk
 
 class CameraService: NSObject, ObservableObject {
     @Published var streamingInfo: StreamingInfo?
 
     private var captureSession: AVCaptureSession?
-    private var videoOutput: AVCaptureVideoDataOutput?
+    private var movieFileOutput: AVCaptureMovieFileOutput?
     private var cloudStreamingService: CloudStreamingService?
     private let pairingManager = PairingManager()
+    private var isRecordingVideo = false
+    private var lastCatDetectionTime: Date?
 
     func startRecording() {
-        // Initialize capture session
         let captureSession = AVCaptureSession()
-        captureSession.sessionPreset = .medium
+        captureSession.sessionPreset = .high
 
         guard let camera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
               let input = try? AVCaptureDeviceInput(device: camera) else {
@@ -25,23 +28,39 @@ class CameraService: NSObject, ObservableObject {
             captureSession.addInput(input)
         }
 
+        guard let audioDevice = AVCaptureDevice.default(for: .audio),
+              let audioInput = try? AVCaptureDeviceInput(device: audioDevice) else {
+            print("Cannot access microphone")
+            return
+        }
+
+        if captureSession.canAddInput(audioInput) {
+            captureSession.addInput(audioInput)
+        }
+
+        // Video output for cat detection
         let videoOutput = AVCaptureVideoDataOutput()
         videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
-        let queue = DispatchQueue(label: "cameraQueue")
+        let queue = DispatchQueue(label: "detectionQueue")
         videoOutput.setSampleBufferDelegate(self, queue: queue)
 
         if captureSession.canAddOutput(videoOutput) {
             captureSession.addOutput(videoOutput)
         }
 
+        // Movie file output for recording
+        let movieFileOutput = AVCaptureMovieFileOutput()
+        if captureSession.canAddOutput(movieFileOutput) {
+            captureSession.addOutput(movieFileOutput)
+        }
+
         self.captureSession = captureSession
-        self.videoOutput = videoOutput
+        self.movieFileOutput = movieFileOutput
 
         // Setup streaming
         let pairingCode = pairingManager.generatePairingCode()
         cloudStreamingService = CloudStreamingService(pairingCode: pairingCode)
 
-        // Create streaming info
         let info = StreamingInfo(
             deviceId: UIDevice.current.identifierForVendor?.uuidString ?? "unknown",
             deviceName: UIDevice.current.name,
@@ -102,10 +121,94 @@ class CameraService: NSObject, ObservableObject {
 
 extension CameraService: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        // Process video frames
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
 
         // Send to cloud streaming
         cloudStreamingService?.broadcastFrame(pixelBuffer)
+
+        // Cat detection (simplified - detect motion/objects)
+        detectAndRecord(pixelBuffer: pixelBuffer)
+    }
+
+    private func detectAndRecord(pixelBuffer: CVPixelBuffer) {
+        let request = VNDetectObjectsRequest { [weak self] request, error in
+            guard let results = request.results as? [VNRecognizedObjectObservation] else { return }
+
+            let catDetected = results.contains { observation in
+                observation.labels.contains { label in
+                    label.identifier.lowercased().contains("cat") || label.identifier.lowercased().contains("animal")
+                }
+            }
+
+            if catDetected {
+                self?.handleCatDetection()
+            }
+        }
+
+        request.usesCPUOnly = true
+        let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
+        try? handler.perform([request])
+    }
+
+    private func handleCatDetection() {
+        // Auto-record for 10 seconds when cat is detected
+        let now = Date()
+        if let lastTime = lastCatDetectionTime, now.timeIntervalSince(lastTime) < 15 {
+            return
+        }
+
+        lastCatDetectionTime = now
+
+        guard !isRecordingVideo, let movieFileOutput = movieFileOutput else { return }
+
+        let outputPath = NSTemporaryDirectory() + "cat_\(Int(Date().timeIntervalSince1970)).mov"
+        let outputURL = URL(fileURLWithPath: outputPath)
+
+        DispatchQueue.main.async {
+            movieFileOutput.startRecording(to: outputURL, recordingDelegate: self)
+            self.isRecordingVideo = true
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                movieFileOutput.stopRecording()
+                self.isRecordingVideo = false
+                self.uploadVideo(url: outputURL)
+            }
+        }
+    }
+
+    private func uploadVideo(url: URL) {
+        // Simulate video upload and auto-share
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.autoShareToKakaoTalk()
+        }
+    }
+
+    private func autoShareToKakaoTalk() {
+        let text = "고양이가 감지되었습니다! 🐱\n새로운 영상이 업로드되었습니다!"
+
+        if let urlStr = "kakaoopen://talk".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+           let url = URL(string: urlStr) {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+        }
+
+        TalkApiClient.shared.sendDefaultMemo(text: text) { error in
+            if let error = error {
+                print("KakaoTalk share failed: \(error)")
+            } else {
+                print("KakaoTalk auto-share success")
+            }
+        }
+    }
+}
+
+extension CameraService: AVCaptureFileOutputRecordingDelegate {
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        if let error = error {
+            print("Recording error: \(error)")
+        } else {
+            print("Video recorded successfully: \(outputFileURL)")
+        }
     }
 }

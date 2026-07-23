@@ -172,7 +172,6 @@ struct HomeView: View {
 
     func startRecording() {
         isRecording = true
-        showPreview = true
         cameraService.startRecording()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             streamingInfo = cameraService.streamingInfo
