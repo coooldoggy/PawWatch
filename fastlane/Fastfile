@@ -1,0 +1,29 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Firebase App Distribution 배포"
+  lane :distribute do
+    setup_ci if is_ci
+
+    build_app(
+      workspace: "PawWatch.xcworkspace",
+      scheme: "PawWatch",
+      configuration: "Debug",
+      destination: "generic/platform=iOS",
+      derived_data_path: "build",
+      archive_path: "build/PawWatch.xcarchive",
+      export_options: {
+        method: "development",
+        signingStyle: "automatic"
+      }
+    )
+
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID"],
+      ipa_path: "build/PawWatch.ipa",
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
+      testers: "coooldoggy@gmail.com",
+      release_notes: "Automated release via GitHub Actions"
+    )
+  end
+end
