@@ -14,5 +14,6 @@ target 'PawWatch' do
   # Firebase
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'FirebaseAppDistribution'
 
 end
