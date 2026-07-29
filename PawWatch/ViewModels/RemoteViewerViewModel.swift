@@ -15,8 +15,13 @@ class RemoteViewerViewModel: ObservableObject {
         // Firebase cloud streaming disabled for now
     }
 
-    func connectToLocal(deviceName: String, ipAddress: String, port: Int) {
+    func connectToLocal(deviceName: String, ipAddress: String, port: Int, pairingCode: String? = nil) {
         streamingState = .connecting
+        if let code = pairingCode {
+            print("Connecting to \(deviceName) at \(ipAddress):\(port) with pairing code: \(code)")
+        } else {
+            print("Connecting to \(deviceName) at \(ipAddress):\(port)")
+        }
         // Local WiFi streaming implementation
     }
 

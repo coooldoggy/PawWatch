@@ -149,7 +149,8 @@ struct RemoteViewerView: View {
     func connectToLocal() {
         isConnecting = true
         if let portNum = Int(port) {
-            remoteViewer.connectToLocal(deviceName: deviceName, ipAddress: ipAddress, port: portNum)
+            let code = pairingCode.isEmpty ? nil : pairingCode
+            remoteViewer.connectToLocal(deviceName: deviceName, ipAddress: ipAddress, port: portNum, pairingCode: code)
             // In real implementation, this would navigate to StreamViewerView
         }
     }
